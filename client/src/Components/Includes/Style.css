@@ -1,0 +1,18 @@
+.mainNav{
+	margin: 0;
+	padding: 0;
+}
+.profilePic{
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+}
+.color:{
+	color: #fff;
+     background-color: #fff; 
+     border-color: #fff;
+    }
+ .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+ 	font-size:30px;
+ 	font-weight: bold;
+}   
