@@ -9,8 +9,8 @@ const Register = () =>{
 					<form className="p-5 formClass">
 						<h1 className="text-center py-3 text-success border-bottom border-success">Signup Form</h1>
 						   <div className="form-group pt-3">
-						    <label htmlFor="username">Email address</label>
-						    <input type="email" className="form-control" id="username" aria-describedby="emailHelp" />
+						    <label htmlFor="username">Username</label>
+						    <input type="text" className="form-control" id="username" aria-describedby="emailHelp" />
 						  </div>
 						  <div className="form-group pt-3">
 						    <label htmlFor="email">Email address</label>
