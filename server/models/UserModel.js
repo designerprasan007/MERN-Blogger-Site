@@ -22,6 +22,10 @@ UserSchema.pre('save', async function(next){
 	next();
 })
 
+UserSchema.methods.Matchpass = async function(password){
+	return await bcryt.compare(password, this.password);
+}
+
 
 const User = mongoose.model('user', UserSchema);
 

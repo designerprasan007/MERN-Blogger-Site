@@ -1,10 +1,12 @@
 import {Link} from 'react-router-dom';
 import {Dropdown} from 'react-bootstrap';
 
+import {useSelector} from 'react-redux';
 import './Style.css'
 
 const Nav = () =>{
-	const isLoggedin = true;
+	const isLoggedin = useSelector((state)=> state.AuthReducer);
+	console.log(isLoggedin);
 	return(
 		<div className="container-fluid shadow p-3 mb-3 bg-white rounded">
 			<div className="row">
