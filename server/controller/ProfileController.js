@@ -11,4 +11,14 @@ const ProfileView = (req, res, next) =>{
 }
 
 
-module.exports = {ProfileView};
+const getAllUsers = async(req, res, next) =>{
+	try {
+	const users = await User.find().select('-password');
+	res.status(200).json({success: true, users})
+	} catch(e) {
+		console.log(e);
+		res.status(500).json({success: false, error: e.message})
+	}
+}	
+
+module.exports = {ProfileView, getAllUsers};

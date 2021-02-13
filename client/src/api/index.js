@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 
-const url = 'http://localhost:4500/api/auth';
+const authUrl = 'http://localhost:4500/api/auth';
+const viewUrl = 'http://localhost:4500/api/views';
 
+export const LoginUserapi = (userdata) => axios.post(`${authUrl}/login`, userdata);
 
-export const LoginUserapi = (userdata) => axios.post(`${url}/login`, userdata);
+export const RegisterDataApi = (userdata) =>axios.post(`${authUrl}/register`, userdata);
 
-export const RegisterDataApi = (userdata) =>axios.post(`${url}/register`, userdata);
+export const getAllUsersApi = () =>axios.get(`${viewUrl}/users`);

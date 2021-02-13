@@ -39,14 +39,34 @@ const RegisterUser = async (req, res) =>{
 }
 
 
+const UpdateUser = async (req, res) =>{
+	// sendToken(req.token,)
+	const data = req.body;
+	const uploadedfilename = req.file.filename;
+	const userdata = {
+		address : data.address,
+		link: data.userLinks,
+		userPic : uploadedfilename,
+		_id: data.userId
+	}
+	console.log(userdata);
+	const usrt = await user.findOneAndUpdate({_id:userdata._id}, userdata  )
+	res.status(200).json({success:true, data});
+}
+
+
+
 const sendToken = (user, status, res) => {
 	const token = user.getSignedToken();
+	const address = user.address ? user.address : '';
+
 	const resUser = {
 		_id: user._id,
 		username: user.username,
-		email: user.email
+		email: user.email,
+		address : address
 	};
 	res.status(status).json({success:true, user:resUser, token: token});
 }
 
-module.exports = {LoginUser, RegisterUser};
+module.exports = {LoginUser, RegisterUser, UpdateUser};

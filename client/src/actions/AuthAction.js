@@ -1,5 +1,4 @@
-import {LoginUserapi, RegisterDataApi} from '../api';
-
+import {LoginUserapi, RegisterDataApi, LogoutUserApi} from '../api';
 
 export const LoginUser = (userdata) => async(dispatch) =>{
 	try {
@@ -19,5 +18,19 @@ export const RegisterUser = (userdata) => async(dispatch) =>{
 	}
 	catch(e){
 		dispatch({type:'REGISTER_ERROR', payload:e.message});
+	}
+}
+
+export const LogoutUser =  async(token) => {
+	try{
+		if(token){
+			localStorage.removeItem("Userinfo");
+			return true
+		}
+	}
+	catch(e){
+		console.log(e)
+		return false
+
 	}
 }

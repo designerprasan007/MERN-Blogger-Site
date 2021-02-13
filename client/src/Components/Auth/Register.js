@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom';
 import './Style.css';
 
-const Register = () =>{
+const Register = ({history}) =>{
 	const [registerdata, setRegisterData] = useState({username:'', email:'', password:'', confPassword:''});
 	const [allfielderror, setAllfielderror] = useState(false);
 	const [passnotmatch, setPassnotmatch] = useState(false);
@@ -22,6 +22,7 @@ const Register = () =>{
 		registerdata.email = '';
 		registerdata.password = '';
 		registerdata.confPassword = '';
+		history.push('/')
 	}
 	const handlesubmit = (e) =>{
 		e.preventDefault();

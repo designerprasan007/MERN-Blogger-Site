@@ -1,12 +1,27 @@
 import {Link} from 'react-router-dom';
 import {Dropdown} from 'react-bootstrap';
-
 import {useSelector} from 'react-redux';
+import {useState, useEffect} from 'react'; 
+
+import {LogoutUser} from '../../actions/AuthAction';
+
 import './Style.css'
 
-const Nav = () =>{
-	const isLoggedin = useSelector((state)=> state.AuthReducer);
-	console.log(isLoggedin);
+const Nav = ({userData, isLoggedin}) =>{
+	
+	// const dispatch = useDispatch();
+
+	const LogginOut = async () =>{
+		let token = JSON.parse(userData).token;
+		// if (userData) {
+		// 	token = ;
+		// } 
+		var logedout = await LogoutUser(token);
+		if (logedout) {
+			window.location = window.location.origin;
+		}
+	}
+
 	return(
 		<div className="container-fluid shadow p-3 mb-3 bg-white rounded">
 			<div className="row">
@@ -25,7 +40,7 @@ const Nav = () =>{
 						  	<img className="profilePic" src="https://static.thenounproject.com/png/17241-200.png" />
 						  </Dropdown.Toggle>
 						  <Dropdown.Menu>
-						    <Dropdown.Item href="#/action-2">Logout</Dropdown.Item>
+						    <Dropdown.Item onClick={LogginOut}>Logout</Dropdown.Item>
 						  </Dropdown.Menu>
 						</Dropdown>
 					</>

@@ -1,11 +1,15 @@
 export const AuthReducer =  (state={}, action) =>{
 	switch (action.type) {
 		case 'LOGIN_USER':
-			return {userdata: action.payload};
+			return {userdata: action.payload, success: true};
 		case 'LOGIN_ERROR':
 			return {error:action.payload};
 		case 'LOGIN_RESET':
 			return {}; 
+		// case 'LOGOUT_USER':
+		// 	return {token: action.payload, success: true};	
+		// case 'LOGOUT_ERROR':
+		// 	return{error:action.payload};	
 		default:
 			return state
 	}

@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-
+const path = require('path');
 const app = express();
 const routes = require('./routes/AuthRoute');
 const views = require('./routes/ViewRoute'); 
@@ -12,7 +12,9 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.use('/api/auth', routes);
-app.use('/api/views', views)
+app.use('/api/views', views);
+
+app.use(express.static(path.join(__dirname, 'ProfilePic')));
 
 const PORT = 4500;
 

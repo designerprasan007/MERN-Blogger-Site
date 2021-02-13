@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Nav from '../Includes/Nav';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faYoutube, faStackOverflow, faMedium } from "@fortawesome/free-brands-svg-icons"
@@ -14,13 +14,24 @@ import SelfEdit from '../ProfileTabs/SelfEdit';
 import './Profile.css';
 
 const Profile = ()=> {
+	const [isLoggedin, setisLoggedin] = useState(false);
+	const [userData, setUserData] = useState({})
+
+	useEffect(() => {
+		setUserData(localStorage.getItem('Userinfo'))
+		if (localStorage.getItem('Userinfo') !== null) {
+			setisLoggedin(true);
+		}
+	}, [isLoggedin])
+
+
 	const [tab, setTab] = useState('Blogs')
 	const CallTab = (componentType) =>{
 		setTab(componentType);
 	}
 	return(
 		<>
-			<Nav />
+			<Nav  isLoggedin={isLoggedin} userData={userData}/>
 			<div className="container-fluid">
 				<div className="row">
 					<div className="col-md-3 col-6">

@@ -1,0 +1,13 @@
+.AllUserpic{
+	height: 70px;
+	width: 60px;
+	object-fit: cover;
+}
+.useDetail > p{
+   line-height: 0.5;
+   font-size: 12px;
+   /*font-weight: bold*/
+}
+.usertags{
+	color: blue
+}

@@ -2,11 +2,17 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcryt = require('bcryptjs');
 
-const UserSchema = mongoose.Schema({
+const UserSchema = new mongoose.Schema({
 	username: String,
 	email: String,
 	password: String,
-	userId: String
+	userId: String,
+	userPic: String,
+	address: String,
+	userLinks:[
+	{
+		type: String
+	}]
 });
 
 UserSchema.methods.getSignedToken = function(){

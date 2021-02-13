@@ -1,16 +1,22 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {LoginUser} from '../../actions/AuthAction' 
 import './Style.css';
 
-const Login = () =>{
+const Login = ({history}) =>{
 	const [logindata, setLoginData] = useState({email: '', password: ''});
 	const dispatch = useDispatch();
-	const {error,userdata} = useSelector((state) =>state.AuthReducer);
+	const {error,success, userdata} = useSelector((state) =>state.AuthReducer);
 	if (error) {
 		setTimeout(() => dispatch({type:'LOGIN_RESET'}), 5000)
 	}
+	useEffect(() => {
+		if(success){
+			history.push(`/profiles/${userdata.user.username}`)
+		}	
+	}, [success])
+	
 	const LoginHandle = (e) =>{
 		e.preventDefault();
 		dispatch(LoginUser(logindata))
