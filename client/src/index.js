@@ -5,6 +5,8 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 
+import {composeWithDevTools} from 'redux-devtools-extension';
+
 import './index.css';
 import App from './App';
 
@@ -12,14 +14,24 @@ import reducers from './reducers';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
+
+
+const userInfoFromStorage = localStorage.getItem('Userinfo')
+  ? JSON.parse(localStorage.getItem('Userinfo'))
+  : null
+
+const initialState = {
+     AuthReducer: {userdata:userInfoFromStorage}
+}
+
+const middleware = [thunk];
+
+const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 
 ReactDOM.render(
-  <React.StrictMode>
   	<Provider store={store} >
 	    <App />
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 

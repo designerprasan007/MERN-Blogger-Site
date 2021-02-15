@@ -74,8 +74,40 @@
   top: 80%;
 }
 
+.edit_pic{
+    width: 200px;
+    height: 200px;
+    border: none; 
+}
+.img-preview{
+    width: 200px;
+    height: 200px;
+    border: none; 
+}
+span.text {
+  font-size:100px;
+  position: absolute;
+  top: 5%;
+  left: 90%;
+  color:white;
+  z-index:10;
+}
 
-
+label span input {
+    z-index: 999;
+    line-height: 0;
+    font-size: 50px;
+    position: absolute;
+    top: -2px;
+    left: -700px;
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    -ms-filter: "alpha(opacity=0)";
+    cursor: pointer;
+    _cursor: hand;
+    margin: 0;
+    padding:0;
+}
 @media only screen and (max-width: 992px) {
   .content-image{
 	  width: 100%;

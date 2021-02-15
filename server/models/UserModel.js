@@ -9,10 +9,7 @@ const UserSchema = new mongoose.Schema({
 	userId: String,
 	userPic: String,
 	address: String,
-	userLinks:[
-	{
-		type: String
-	}]
+	userLinks:[ String]
 });
 
 UserSchema.methods.getSignedToken = function(){

@@ -1,4 +1,5 @@
 export const AuthReducer =  (state={}, action) =>{
+	// console.log(action.payload);	
 	switch (action.type) {
 		case 'LOGIN_USER':
 			return {userdata: action.payload, success: true};

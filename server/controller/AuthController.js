@@ -39,21 +39,35 @@ const RegisterUser = async (req, res) =>{
 }
 
 
+
 const UpdateUser = async (req, res) =>{
 	// sendToken(req.token,)
 	const data = req.body;
 	const uploadedfilename = req.file.filename;
-	const userdata = {
-		address : data.address,
-		link: data.userLinks,
-		userPic : uploadedfilename,
-		_id: data.userId
+	const _id = data.userId;
+	const gotLinks = data.userLinks;
+	try{
+		const user = await User.findOne({_id});
+		if(!user){
+			res.status(401).json({success:false, message: 'Unauthorized'});
+		}
+		else{
+			user.username = data.username || user.username;
+			user.email = data.email || user.email;
+			user.password = data.password || user.password;
+			user.userId = _id || user.userId;
+			user.userPic = uploadedfilename || user.userPic;
+			user.userPic = uploadedfilename || user.userPic;
+			user.address = data.address || user.address;
+			user.userLinks = data.userLinks || [];
+			const updatedUser = await user.save()
+			res.status(200).json({success:true, user});
+		}
 	}
-	console.log(userdata);
-	const usrt = await user.findOneAndUpdate({_id:userdata._id}, userdata  )
-	res.status(200).json({success:true, data});
+	catch(err){
+		res.status(500).json({success: false, message: err.message});
+	}
 }
-
 
 
 const sendToken = (user, status, res) => {
@@ -64,8 +78,11 @@ const sendToken = (user, status, res) => {
 		_id: user._id,
 		username: user.username,
 		email: user.email,
-		address : address
+		address : address,
+		userLinks: user.userLinks,
+		profilePic: user.userPic
 	};
+	console.log(resUser);
 	res.status(status).json({success:true, user:resUser, token: token});
 }
 

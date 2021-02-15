@@ -4,7 +4,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faYoutube, faStackOverflow, faMedium } from "@fortawesome/free-brands-svg-icons"
 import {faBars} from '@fortawesome/free-solid-svg-icons'
 import {Dropdown} from 'react-bootstrap';
-
+import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 // import Tabs
 
 import SelfBlogs from '../ProfileTabs/SelfBlogs';
@@ -16,6 +17,8 @@ import './Profile.css';
 const Profile = ()=> {
 	const [isLoggedin, setisLoggedin] = useState(false);
 	const [userData, setUserData] = useState({})
+
+	const {userdata} = useSelector((state)=>state.AuthReducer);
 
 	useEffect(() => {
 		setUserData(localStorage.getItem('Userinfo'))
@@ -35,16 +38,30 @@ const Profile = ()=> {
 			<div className="container-fluid">
 				<div className="row">
 					<div className="col-md-3 col-6">
-						<img src="https://static.thenounproject.com/png/17241-200.png" className="mainProfilePic" />
+						<img src={`http://localhost:4500/${userdata.user.profilePic}`} className="mainProfilePic rounded-circle" />
 						<div className="pt-4 text-left">
-							<span className="profileHeader">Name</span>:<span className="profileName"> Prasanna</span><br/>
+							<span className="profileHeader">Name</span>:<span className="profileName"> {userdata.user.username}</span><br/>
+							<span className="profileHeader">Email</span>:<span className="profileName"> {userdata.user.email}</span><br/>
+							<span className="profileHeader">City</span>:<span className="profileName"> {userdata.user.address}</span><br/>
 							<span className="profileHeader">Blogs</span>:<span className="profileName"> 10</span><br />
 							<h2 className="pt-2">
-								<FontAwesomeIcon className="text-primary mx-2" icon={faFacebook} />
-								<FontAwesomeIcon className="text-primary mx-2" icon={faTwitter} /> 
-								<FontAwesomeIcon className="text-danger mx-2" icon={faYoutube} /> 
-								<FontAwesomeIcon className="text-warning mx-2" icon={faStackOverflow} /> 
-								<FontAwesomeIcon className="text-dark mx-2" icon={faMedium} /> 
+								{userdata.user.userLinks ? (userdata.user.userLinks.map((link) =>{
+																	 if(link.includes('youtube.com')){
+																	    return(<Link to= {link} key="1"><FontAwesomeIcon className="text-danger mx-2" icon={faYoutube} /></Link>)
+																	  }
+																	  if(link.includes('facebook.com')){
+																	    return(<Link to= '/' key="2"> <FontAwesomeIcon className="text-primary mx-2" icon={faFacebook} /></Link>)
+																	  }
+																	  if(link.includes('stackoverflow.com')){
+																	    return(<Link to='/' key="3"><FontAwesomeIcon  className="text-warning mx-2" icon={faStackOverflow} /></Link>)
+																	  }
+																	  if(link.includes('twitter.com')){
+																	    return(<Link to='/' key="4"><FontAwesomeIcon  className="text-primary mx-2" icon={faTwitter} /></Link>)
+																	  }
+																	  if(link.includes('medium.com')){
+																	    return(<Link to='/' key="5"><FontAwesomeIcon  className="text-dark mx-2" icon={faMedium} /></Link>)
+																	  }
+																})) : ''}
 							</h2>
 						</div>
 					</div>
@@ -76,7 +93,7 @@ const Profile = ()=> {
 								}
 								{
 									tab === 'Edit' &&(
-										<SelfEdit />
+										<SelfEdit userdata = {userdata} />
 										)
 								}
 						</div>	
