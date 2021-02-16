@@ -10,11 +10,11 @@ import {Link} from 'react-router-dom';
 
 import SelfBlogs from '../ProfileTabs/SelfBlogs';
 import SelfEdit from '../ProfileTabs/SelfEdit';
-
+import CreateBlog from '../ProfileTabs/CreateBlog';
 
 import './Profile.css';
 
-const Profile = ()=> {
+const Profile = ({history})=> {
 	const [isLoggedin, setisLoggedin] = useState(false);
 	const [userData, setUserData] = useState({})
 
@@ -25,16 +25,19 @@ const Profile = ()=> {
 		if (localStorage.getItem('Userinfo') !== null) {
 			setisLoggedin(true);
 		}
+		else{
+			history.push('/')
+		}
 	}, [isLoggedin])
-
-
+	
 	const [tab, setTab] = useState('Blogs')
 	const CallTab = (componentType) =>{
 		setTab(componentType);
 	}
 	return(
 		<>
-			<Nav  isLoggedin={isLoggedin} userData={userData}/>
+			<Nav  isLoggedin={isLoggedin} userdata={userdata}/>
+			{userdata ? (
 			<div className="container-fluid">
 				<div className="row">
 					<div className="col-md-3 col-6">
@@ -46,22 +49,22 @@ const Profile = ()=> {
 							<span className="profileHeader">Blogs</span>:<span className="profileName"> 10</span><br />
 							<h2 className="pt-2">
 								{userdata.user.userLinks ? (userdata.user.userLinks.map((link) =>{
-																	 if(link.includes('youtube.com')){
-																	    return(<Link to= {link} key="1"><FontAwesomeIcon className="text-danger mx-2" icon={faYoutube} /></Link>)
-																	  }
-																	  if(link.includes('facebook.com')){
-																	    return(<Link to= '/' key="2"> <FontAwesomeIcon className="text-primary mx-2" icon={faFacebook} /></Link>)
-																	  }
-																	  if(link.includes('stackoverflow.com')){
-																	    return(<Link to='/' key="3"><FontAwesomeIcon  className="text-warning mx-2" icon={faStackOverflow} /></Link>)
-																	  }
-																	  if(link.includes('twitter.com')){
-																	    return(<Link to='/' key="4"><FontAwesomeIcon  className="text-primary mx-2" icon={faTwitter} /></Link>)
-																	  }
-																	  if(link.includes('medium.com')){
-																	    return(<Link to='/' key="5"><FontAwesomeIcon  className="text-dark mx-2" icon={faMedium} /></Link>)
-																	  }
-																})) : ''}
+									 if(link.includes('youtube.com')){
+									    return(<Link to= {link} key="1"><FontAwesomeIcon className="text-danger mx-2" icon={faYoutube} /></Link>)
+									  }
+									  if(link.includes('facebook.com')){
+									    return(<Link to= '/' key="2"> <FontAwesomeIcon className="text-primary mx-2" icon={faFacebook} /></Link>)
+									  }
+									  if(link.includes('stackoverflow.com')){
+									    return(<Link to='/' key="3"><FontAwesomeIcon  className="text-warning mx-2" icon={faStackOverflow} /></Link>)
+									  }
+									  if(link.includes('twitter.com')){
+									    return(<Link to='/' key="4"><FontAwesomeIcon  className="text-primary mx-2" icon={faTwitter} /></Link>)
+									  }
+									  if(link.includes('medium.com')){
+									    return(<Link to='/' key="5"><FontAwesomeIcon  className="text-dark mx-2" icon={faMedium} /></Link>)
+									  }
+								})) : ''}
 							</h2>
 						</div>
 					</div>
@@ -69,6 +72,9 @@ const Profile = ()=> {
 						<ul className="list-inline border-bottom p-3 text-center webSiteView">
 						  <li className="list-inline-item px-3">
 						  	<button className="btn btn-outline-warning" onClick={() =>CallTab('Blogs')}>Blogs</button>
+						  </li>
+						  <li className="list-inline-item px-3">
+						  	<button className="btn btn-outline-warning" onClick={() =>CallTab('Create')}>Create</button>
 						  </li>
 						  <li className="list-inline-item px-3">
 						  	<button className="btn btn-outline-warning" onClick={() =>CallTab('Edit')}>Edit</button>
@@ -81,6 +87,7 @@ const Profile = ()=> {
 						  </Dropdown.Toggle>
 						  <Dropdown.Menu>
 						    <Dropdown.Item onClick={() =>CallTab('Blogs')}>Blogs</Dropdown.Item>
+					        <Dropdown.Item onClick={() =>CallTab('Create')}>Create</Dropdown.Item>
 					        <Dropdown.Item onClick={() =>CallTab('Edit')}>Edit</Dropdown.Item>
 						  </Dropdown.Menu>
 						</Dropdown>
@@ -96,10 +103,16 @@ const Profile = ()=> {
 										<SelfEdit userdata = {userdata} />
 										)
 								}
+								{
+									tab === 'Create' &&(
+										<CreateBlog userdata = {userdata} />
+										)
+								}
 						</div>	
 					</div>
 				</div>
 			</div>
+			): 'null'}
 		</>
 		)
 }

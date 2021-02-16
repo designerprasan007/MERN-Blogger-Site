@@ -1,7 +1,6 @@
 const User = require('../models/UserModel');
 
 const ProfileView = (req, res, next) =>{
-	console.log(req.user + 'this is user');
 	const userdata = {
 		_id : req.user._id,
 		username : req.user.username,

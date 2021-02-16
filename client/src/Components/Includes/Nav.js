@@ -7,15 +7,10 @@ import {LogoutUser} from '../../actions/AuthAction';
 
 import './Style.css'
 
-const Nav = ({userData, isLoggedin}) =>{
-	
-	// const dispatch = useDispatch();
+const Nav = ({userdata, isLoggedin}) =>{
 
 	const LogginOut = async () =>{
-		let token = JSON.parse(userData).token;
-		// if (userData) {
-		// 	token = ;
-		// } 
+		let token = userdata.token;
 		var logedout = await LogoutUser(token);
 		if (logedout) {
 			window.location = window.location.origin;
@@ -37,7 +32,7 @@ const Nav = ({userData, isLoggedin}) =>{
 					<>
 						<Dropdown>
 						  <Dropdown.Toggle variant="light" id="dropdown-basic">
-						  	<img className="profilePic" src="https://static.thenounproject.com/png/17241-200.png" />
+						  	<img className="profilePic" src={`http://localhost:4500/${userdata.user.profilePic}`} />
 						  </Dropdown.Toggle>
 						  <Dropdown.Menu>
 						    <Dropdown.Item onClick={LogginOut}>Logout</Dropdown.Item>

@@ -1,6 +1,7 @@
 const express = require('express');
-const {LoginUser, RegisterUser, LogoutUser, UpdateUser} = require('../controller/AuthController');
-// const {destroyToken} = require('../middleware/Private');
+const {LoginUser, RegisterUser, LogoutUser, UpdateUser, updateImg} = require('../controller/AuthController');
+const {getPrivateData} = require('../middleware/Private');
+
 const multer  = require('multer');
 
 const path = require('path');
@@ -30,7 +31,7 @@ const routes = express.Router();
 
 routes.post('/login', LoginUser);
 routes.post('/register', RegisterUser);
-routes.post('/userupdate', upload.single('profilepic'), UpdateUser)
-// routes.post('/logout', destroyToken, LogoutUser);
+routes.post('/userupdate', upload.single('profilepic'), UpdateUser);
+routes.put('/userimgEdit', getPrivateData, upload.single('profilepic'),  updateImg)
 
 module.exports = routes;

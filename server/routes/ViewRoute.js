@@ -8,7 +8,6 @@ const views = express.Router();
 
 views.get('/profile', getPrivateData, ProfileView)
 
-
 views.get('/users', getAllUsers);
 
 module.exports = views;
