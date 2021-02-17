@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+const {ObjectId} = mongoose.Schema.Types
 
 const BlogSchema = new mongoose.Schema({
 	title: String,
@@ -9,7 +10,10 @@ const BlogSchema = new mongoose.Schema({
 			type: String
 		}
 	],
-	adminid: String,
+	adminid: {
+		type: ObjectId,
+		ref:'user'
+	},
 	tags:[
 		{
 			type: String
@@ -19,6 +23,20 @@ const BlogSchema = new mongoose.Schema({
 		type: Date,
 		default : Date.Now
 	},
+	likes:[{
+		type: ObjectId,
+		ref: 'user',  
+	}],
+	comments:[{
+		type: ObjectId,
+		ref: 'user',
+		comment: String,	
+		date:{
+			type: Date,
+			default : Date.Now
+		}
+	}]
+
 })
 
 const Blog = mongoose.model('blog', BlogSchema);

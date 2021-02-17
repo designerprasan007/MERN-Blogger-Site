@@ -63,7 +63,6 @@ const updateImg = async(req, res) =>{
 	const _id = req.user._id;
 	const data = req.body;
 	const uploadedfilename = req.file.filename;
-	console.log(uploadedfilename);
 	try{
 		const user = await User.findOne({_id});
 		if (!user) return res.status(403).json({success:false, message:'Unauthorized'});
@@ -121,4 +120,4 @@ const sendToken = (user, status, res) => {
 
 
 
-module.exports = {LoginUser, RegisterUser, UpdateUser, updateImg};
+module.exports = {LoginUser, RegisterUser, UpdateUser, updateImg, sendToken};

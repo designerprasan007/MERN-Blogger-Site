@@ -17,6 +17,8 @@ app.use('/api/views', views);
 app.use('/api/blogs', blogs)
 
 app.use(express.static(path.join(__dirname, 'ProfilePic')));
+app.use(express.static(path.join(__dirname, 'BlogImg')));
+
 
 const PORT = 4500;
 
