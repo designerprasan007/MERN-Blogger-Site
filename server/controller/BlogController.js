@@ -38,20 +38,36 @@ const GetUsersAllBlog = async(req, res) =>{
 
 
 const EditBlog = async(req, res) =>{
-	// const adminid = req.user.userId;
+	const adminid = req.user._id;
+	const _id = req.body.blogid;
 	const data = req.body;
-	console.log(data);
-	res.send(data);
-	// try{
+	console.log(data.tags);
+	try{
+		const blog = await Blog.findOne({$and:[{_id}, {adminid}]}); 
+		if(!blog) return res.status(403).json({success:false, message:'No User found'});
+		blog.title = data.title || blog.title;
+		blog.content = data.content || blog.content;
+		blog.tags = data.tags || blog.tags;
+		blog.likes = data.likes || blog.likes;
+		blog.comments = data.comments || blog.comments;
+		blog.adminid = adminid || blog.adminid;
 
-	// 	const blog = await Blog.
-	// }
-	// catch(e){
-	// 	res.status(500).json({success:false, message: e})
-	// }
+		const updatedUser = await blog.save();
+		console.log(blog);
+		res.status(200).json({success:true, blog})
+	}
+	catch(e){
+		console.log(e);
+		res.send(e);
+	}	
 }
 
+const DeleteBlog = async(req, res) =>{
+	const _id = req.body;
+	console.log(_id);
+	res.send(_id);
+}
 
-module.exports = {InsertBlog, GetUsersAllBlog, EditBlog};
+module.exports = {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog};
 
 

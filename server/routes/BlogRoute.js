@@ -1,7 +1,7 @@
 const express = require('express');
 const multer  = require('multer');
 const {getPrivateData} = require('../middleware/Private');
-const {InsertBlog, GetUsersAllBlog, EditBlog} = require('../controller/BlogController');
+const {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog} = require('../controller/BlogController');
 
 
 const path = require('path');
@@ -29,6 +29,8 @@ const blogs = express.Router();
 blogs.post('/newblog', getPrivateData, upload.array('blogimg', 3),  InsertBlog);
 blogs.get('/userblog', getPrivateData, GetUsersAllBlog);
 blogs.put('/editblog', getPrivateData, upload.array('blogimg', 3), EditBlog);
+blogs.delete('/deleteblog', getPrivateData, DeleteBlog);
+
 
 module.exports = blogs;
 
