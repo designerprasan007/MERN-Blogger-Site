@@ -63,9 +63,16 @@ const EditBlog = async(req, res) =>{
 }
 
 const DeleteBlog = async(req, res) =>{
-	const _id = req.body;
-	console.log(_id);
-	res.send(_id);
+	const blogid = req.body.blogid;
+	const  adminid = req.user._id;
+	try{
+		const blog = await Blog.findOne({$and:[{_id:blogid}, {adminid}]});
+		res.status(200).json({success: true, blog});
+	}
+	catch(e){
+		console.log(e);
+		res.status(500).json({success: false, message:e})
+	}
 }
 
 module.exports = {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog};

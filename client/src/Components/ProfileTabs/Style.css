@@ -113,6 +113,11 @@ label span input {
 .editForm{
   width: 50% !important;
 }
+/*add blog page design*/
+.titleDiv{
+  line-height: 2px;
+}
+
 @media only screen and (max-width: 992px) {
   .content-image{
 	  width: 100%;
