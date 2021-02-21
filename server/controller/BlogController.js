@@ -10,8 +10,8 @@ const InsertBlog = async(req, res) =>{
 	const blogdata = req.body;
 	const {title, content, tags} = blogdata;
 	try {
-		const blog = await Blog.create({title, content, blogpic, adminid, tags});
-		res.status(200).json({success: true, blog})
+		// const blog = await Blog.create({title, content, blogpic, adminid, tags});
+		res.status(200).json({success: true})
 	} catch(e) {
 		console.log(e);
 		res.status(500).json({success:false, message:e});

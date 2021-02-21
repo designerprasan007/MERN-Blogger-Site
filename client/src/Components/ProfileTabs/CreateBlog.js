@@ -1,14 +1,26 @@
 import {useState, useEffect} from 'react';
 import Select from 'react-select'
+import {useDispatch} from 'react-redux';
+import {CreateBlogFun} from '../../actions/BlogController';
 
-const CreateBlog = () =>{
+const CreateBlog = ({userdata}) =>{
 	const [tags, SetTags] = useState([]);
 	const [title, SetTitle] = useState('');
 	const [body, SetBody] = useState('');
-	  const [{alt, src}, setImg] = useState({
-        src: '',
+	const [{src1, imgdata1}, setImg1] = useState({
+        src1: '',
+        imgdata1: '',
+    });
+    const [{src2, imgdata2}, setImg2] = useState({
+        src2: '',
+        imgdata2:''
+    });
+	const [{src3, imgdata3}, setImg3] = useState({
+        src3: '',
+        imgdata3:''
     });
 
+	const dispatch = useDispatch();
 
 	const AvailableTags = [
 		  { value: 'Education', label: 'Education' },
@@ -21,22 +33,49 @@ const CreateBlog = () =>{
 	const handlechange = (options) =>{
 		SetTags(options);
 	}
-
-	const handleSubmit = (e) =>{
-		const tagsValue = tags.map((tag)=>{
-			return tag.value;
-		})
-		console.log(title, body, tagsValue);
-	}
-
-	const handleImag = (e) =>{
+	const handleImag1 = (e) =>{
 		 if(e.target.files[0]) {
-            setImg({
-                src: URL.createObjectURL(e.target.files[0]),
-                alt: e.target.files[0].name
+            setImg1({
+                src1: URL.createObjectURL(e.target.files[0]),
+                imgdata1: e.target.files[0]
             });    
         }   
 	}
+
+	const handleImag2 = (e) =>{
+		 if(e.target.files[0]) {
+            setImg2({
+                src2: URL.createObjectURL(e.target.files[0]),
+                imgdata2: e.target.files[0]
+
+            });    
+        }   
+	}
+	const handleImag3 = (e) =>{
+		 if(e.target.files[0]) {
+            setImg3({
+                src3: URL.createObjectURL(e.target.files[0]),
+                imgdata3: e.target.files[0]
+
+            });    
+        }   
+	}
+
+	const handleSubmit = (e) =>{
+		e.preventDefault();
+		const tagsValue = tags.map((tag)=>{
+			return tag.value;
+		})
+		let formData = new FormData();
+		formData.append('blogimg', imgdata1);
+		formData.append('blogimg', imgdata2);
+		formData.append('blogimg', imgdata3);
+		formData.append('title', title);
+		formData.append('body', body);
+		formData.append('tags', tagsValue);
+		dispatch(CreateBlogFun(formData, userdata.token))
+	}
+
 
 	return (
 		<div className="container-fluid">
@@ -50,8 +89,18 @@ const CreateBlog = () =>{
 						</div>
 						<div className="py-3">
 							<p><strong>Choose Image</strong></p>
-							<input type="file" onChange={handleImag} />
-							<img src={src} alt={alt} />
+							<div>
+								<input type="file" onChange={handleImag1} />
+								<img src={src1} className="showPreview" />
+							</div>
+							<div>
+								<input type="file" onChange={handleImag2} />
+								<img src={src2} className="showPreview" />
+							</div>
+							<div>
+								<input type="file" onChange={handleImag3} />
+								<img src={src3} className="showPreview" />
+							</div>
 						</div>
 						<div className="titleDiv pt-5">
 							<p><strong>Body</strong></p>

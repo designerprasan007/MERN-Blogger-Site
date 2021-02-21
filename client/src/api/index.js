@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const authUrl = 'http://localhost:4500/api/auth';
 const viewUrl = 'http://localhost:4500/api/views';
+const blogUrl = 'http://localhost:4500/api/blogs';
 
 export const LoginUserapi = (userdata) => axios.post(`${authUrl}/login`, userdata);
 
@@ -16,4 +17,11 @@ export const updateProfileImg = (formdata, token) => axios.put(`${authUrl}/useri
 			"Content-Type":"multipart/form-data",
 			Authorization: 'Bearer ' + token 
 		}
+})
+
+export const createBlogApi = (formdata, token) => axios.post(`${blogUrl}/newblog`, formdata, {
+	headers:{
+		"Content-Type":"multipart/form-data",
+		Authorization: 'Bearer ' + token
+	}
 })
