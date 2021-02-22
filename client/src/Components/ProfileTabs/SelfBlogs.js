@@ -1,51 +1,51 @@
+import {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {GetAdminBlog} from '../../actions/BlogController';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
+import {faHeart} from '@fortawesome/free-solid-svg-icons'
+
 import './Style.css'
-const SelfBlogs = () =>{
+const SelfBlogs = ({userdata}) =>{
+	const [imageNum, setimageNum] = useState('')
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(GetAdminBlog(userdata.token));
+	}, [])
+	const {blogs} = useSelector(state=>state.BlogReducer);
+	console.log(blogs);
 	return(
 		<div className="row text-center blogHero no-gutters">
-			<div className="col-md-6 col-12 py-3">
-				<h3>Blog 1</h3>
-				<div className="card content">
-					<div className="content-overlay"></div>
-					  <img src="https://i.pinimg.com/originals/ca/76/0b/ca760b70976b52578da88e06973af542.jpg" className="content-image card-img-top blogImage" alt="..." />
-				      <div className="content-details fadeIn-bottom">
-				        <h3 className="content-title">This is a title</h3>
-				        <p className="content-text">This is a short description</p>
-				      </div>
+			{
+				blogs?.data?.blogs?.map(blog=>(
+				<div className="col-md-6 col-12 py-3" key={blog._id}>
+					<h3>{blog.title}</h3>
+					<div className="card content">
+						<CarouselProvider naturalSlideWidth={20} naturalSlideHeight={20} totalSlides={blog.blogpic.length}>
+					        <Slider>
+					        	{
+					        		blog.blogpic.map((img, i)=>(
+					        			<Slide index={i} key={i}><img className="blogimg" src={`http://localhost:4500/${img}`} /></Slide>
+					        		))
+					        	}
+					        </Slider>
+					        <ButtonBack className="leftCaroselBtn">Back</ButtonBack>
+        					<ButtonNext className="rightCaroselBtn">Next</ButtonNext>
+					    </CarouselProvider>			
+			    		<p className="text-left pl-3 pt-2">
+			    			<FontAwesomeIcon icon={faHeart} className="fa-1x mr-2 LikeIcon text-dark" />
+			    			{blog.likes.length ==0 ? ('Give a First Like'):(blog.likes)}
+		    			</p>	
+		    			<p className="text-left pl-3 pt-2">
+		    				{blog.tags.map(tag=>(
+		    						'#'+tag
+		    					))}
+		    			</p>	
+			    	</div>
 				</div>
-			</div>
-			<div className="col-md-6 col-12 py-3">
-					<h3>Blog 2</h3>
-				<div className="card content">
-					<div className="content-overlay"></div>
-					  <img src="https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg" className="content-image card-img-top blogImage" alt="..." />
-				      <div className="content-details fadeIn-bottom">
-				        <h3 className="content-title">This is a title</h3>
-				        <p className="content-text">This is a short description</p>
-				      </div>
-				</div>
-			</div>
-			<div className="col-md-6 col-12 py-3">
-				<h3>Blog 3</h3>
-				<div className="card content">
-					<div className="content-overlay"></div>
-					  <img src="https://i.pinimg.com/originals/ca/76/0b/ca760b70976b52578da88e06973af542.jpg" className="content-image card-img-top blogImage" alt="..." />
-				      <div className="content-details fadeIn-bottom">
-				        <h3 className="content-title">This is a title</h3>
-				        <p className="content-text">This is a short description</p>
-				      </div>
-				</div>
-			</div>
-			<div className="col-md-6 col-12 py-3">
-					<h3>Blog 4</h3>
-				<div className="card content">
-					<div className="content-overlay"></div>
-					  <img src="https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg" className="content-image card-img-top blogImage" alt="..." />
-				      <div className="content-details fadeIn-bottom">
-				        <h3 className="content-title">This is a title</h3>
-				        <p className="content-text">This is a short description</p>
-				      </div>
-				</div>
-			</div>
+					))
+			}
 		</div>	
 		)
 }

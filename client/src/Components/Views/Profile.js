@@ -95,7 +95,7 @@ const Profile = ({history})=> {
 						<div className="container">
 								{
 									tab === 'Blogs' &&(
-										<SelfBlogs />
+										<SelfBlogs userdata={userdata} />
 										)
 								}
 								{
@@ -105,7 +105,7 @@ const Profile = ({history})=> {
 								}
 								{
 									tab === 'Create' &&(
-										<CreateBlog userdata = {userdata} />
+										<CreateBlog userdata = {userdata} callTab={CallTab} />
 										)
 								}
 						</div>	

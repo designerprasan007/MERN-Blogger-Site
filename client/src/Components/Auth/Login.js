@@ -5,7 +5,7 @@ import {LoginUser} from '../../actions/AuthAction'
 import './Style.css';
 
 const Login = ({history}) =>{
-	const [logindata, setLoginData] = useState({email: '', password: ''});
+	const [logindata, setLoginData] = useState({email: 'designerprasan007@gmail.com', password: 'Prasanna'});
 	const dispatch = useDispatch();
 	const {error,success, userdata} = useSelector((state) =>state.AuthReducer);
 	if (error) {

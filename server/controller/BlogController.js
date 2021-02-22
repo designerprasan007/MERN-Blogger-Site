@@ -10,7 +10,7 @@ const InsertBlog = async(req, res) =>{
 	const blogdata = req.body;
 	const {title, content, tags} = blogdata;
 	try {
-		// const blog = await Blog.create({title, content, blogpic, adminid, tags});
+		const blog = await Blog.create({title, content, blogpic, adminid, tags});
 		res.status(200).json({success: true})
 	} catch(e) {
 		console.log(e);
@@ -23,7 +23,8 @@ const GetUsersAllBlog = async(req, res) =>{
 	const data = req.user;
 	const {adminid} = data.userId;
 	try{
-		const blogs = await Blog.findOne(adminid);
+		const blogs = await Blog.find(adminid);
+		console.log(blogs)
 		if(!blogs){
 			return res.status(200).json({success: true, message:'No Blogs Found'})
 		}

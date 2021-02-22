@@ -27,8 +27,8 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 const blogs = express.Router();
 
 
-blogs.post('/newblog', getPrivateData, upload.array('blogimg', 3),  InsertBlog);
-blogs.get('/userblog', getPrivateData, GetUsersAllBlog);
+blogs.post('/newblog', getPrivateData, upload.any('blogimg'),  InsertBlog);
+blogs.get('/adminblogs', getPrivateData, GetUsersAllBlog);
 blogs.put('/editblog', getPrivateData, upload.array('blogimg', 3), EditBlog);
 blogs.delete('/deleteblog', getPrivateData, DeleteBlog);
 

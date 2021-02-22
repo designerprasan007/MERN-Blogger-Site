@@ -25,3 +25,9 @@ export const createBlogApi = (formdata, token) => axios.post(`${blogUrl}/newblog
 		Authorization: 'Bearer ' + token
 	}
 })
+
+export const getAdminBlogApi = (token) => axios.get(`${blogUrl}/adminblogs`, {
+	headers:{
+		Authorization: 'Bearer ' + token
+	}
+})
