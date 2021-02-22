@@ -14,7 +14,6 @@ const SelfBlogs = ({userdata}) =>{
 		dispatch(GetAdminBlog(userdata.token));
 	}, [])
 	const {blogs} = useSelector(state=>state.BlogReducer);
-	console.log(blogs);
 	return(
 		<div className="row text-center blogHero no-gutters">
 			{

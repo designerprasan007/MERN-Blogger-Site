@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom';
 import SelfBlogs from '../ProfileTabs/SelfBlogs';
 import SelfEdit from '../ProfileTabs/SelfEdit';
 import CreateBlog from '../ProfileTabs/CreateBlog';
-
+import MobileProfileTab from '../ProfileTabs/MobileProfileTab';
 import './Profile.css';
 
 const Profile = ({history})=> {
@@ -40,7 +40,7 @@ const Profile = ({history})=> {
 			{userdata ? (
 			<div className="container-fluid">
 				<div className="row">
-					<div className="col-md-3 col-6">
+					<div className="col-md-3 mobileProfile">
 						<img src={`http://localhost:4500/${userdata.user.profilePic}`} className="mainProfilePic rounded-circle" />
 						<div className="pt-4 text-left">
 							<span className="profileHeader">Name</span>:<span className="profileName"> {userdata.user.username}</span><br/>
@@ -68,7 +68,7 @@ const Profile = ({history})=> {
 							</h2>
 						</div>
 					</div>
-					<div className="col-md-9 col-6 profileSection">
+					<div className="col-md-9 col-12 profileSection">
 						<ul className="list-inline border-bottom p-3 text-center webSiteView">
 						  <li className="list-inline-item px-3">
 						  	<button className="btn btn-outline-warning" onClick={() =>CallTab('Blogs')}>Blogs</button>
@@ -86,6 +86,7 @@ const Profile = ({history})=> {
 						  	<FontAwesomeIcon icon ={faBars} />
 						  </Dropdown.Toggle>
 						  <Dropdown.Menu>
+							<Dropdown.Item onClick={() =>CallTab('Profile')}>Profile</Dropdown.Item>
 						    <Dropdown.Item onClick={() =>CallTab('Blogs')}>Blogs</Dropdown.Item>
 					        <Dropdown.Item onClick={() =>CallTab('Create')}>Create</Dropdown.Item>
 					        <Dropdown.Item onClick={() =>CallTab('Edit')}>Edit</Dropdown.Item>
@@ -105,7 +106,12 @@ const Profile = ({history})=> {
 								}
 								{
 									tab === 'Create' &&(
-										<CreateBlog userdata = {userdata} callTab={CallTab} />
+										<CreateBlog userdata = {userdata} />
+										)
+								}
+								{
+									tab === 'Profile' &&(
+										<MobileProfileTab userdata = {userdata} />
 										)
 								}
 						</div>	

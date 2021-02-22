@@ -8,9 +8,13 @@ const InsertBlog = async(req, res) =>{
 		return img.filename;
 	})
 	const blogdata = req.body;
+	// console.log(blogdata)
+	// blogdata.tags.map(tag=>{
+		console.log(blogdata.tags);
+	// })
 	const {title, content, tags} = blogdata;
 	try {
-		const blog = await Blog.create({title, content, blogpic, adminid, tags});
+		// const blog = await Blog.create({title, content, blogpic, adminid, tags});
 		res.status(200).json({success: true})
 	} catch(e) {
 		console.log(e);

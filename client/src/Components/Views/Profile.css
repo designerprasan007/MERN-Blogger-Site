@@ -40,4 +40,10 @@
 		font-size: 10px;
 		color: rgb(247, 62, 84)
 	}
+	.mobileProfile{
+		display: none;
+	}
+	.titleDiv {
+		line-height: 16px;
+	}
 }
