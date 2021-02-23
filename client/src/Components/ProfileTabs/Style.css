@@ -104,7 +104,10 @@ label span input {
   top: 2px;
 }
 .LikeIcon{
-  font-size: 25px;
+  font-size: 22px;
+}
+.blog_content{
+  line-height: 2px;
 }
 @media only screen and (max-width: 992px) {
   .content-image{

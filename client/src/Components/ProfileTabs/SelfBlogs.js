@@ -14,6 +14,7 @@ const SelfBlogs = ({userdata}) =>{
 		dispatch(GetAdminBlog(userdata.token));
 	}, [])
 	const {blogs} = useSelector(state=>state.BlogReducer);
+	console.log(blogs);
 	return(
 		<div className="row text-center blogHero no-gutters">
 			{
@@ -36,10 +37,12 @@ const SelfBlogs = ({userdata}) =>{
 			    			<FontAwesomeIcon icon={faHeart} className="fa-1x mr-2 LikeIcon text-dark" />
 			    			{blog.likes.length ==0 ? ('Give a First Like'):(blog.likes)}
 		    			</p>	
-		    			<p className="text-left pl-3 pt-2">
-		    				{blog.tags.map(tag=>(
-		    						'#'+tag
-		    					))}
+		    			<p className="text-left blog_content pl-2"><small>{blog.content}</small>	
+		    			</p>
+		    			<p className="text-left pl-2">
+		    				{blog.tags.split(',').map((t, i)=>(
+		    					<a className="blog_content" href="#" key={i}><small>#{t}</small>	 </a>
+		    				))}
 		    			</p>	
 			    	</div>
 				</div>

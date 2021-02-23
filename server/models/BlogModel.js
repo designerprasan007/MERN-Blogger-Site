@@ -14,11 +14,7 @@ const BlogSchema = new mongoose.Schema({
 		type: ObjectId,
 		ref:'user'
 	},
-	tags:[
-		{
-			type: String
-		}
-	],
+	tags: String,
 	created:{
 		type: Date,
 		default : Date.Now

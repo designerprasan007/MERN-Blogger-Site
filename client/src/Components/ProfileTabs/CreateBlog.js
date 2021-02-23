@@ -73,25 +73,24 @@ const CreateBlog = ({userdata, callTab}) =>{
 
 	const handleSubmit = (e) =>{
 		e.preventDefault();
-		// const tagsValue = tags.map((tag)=>{
-		// 	return tag.value;
-		// })
+		const tagsValue = tags.map((tag)=>{
+			return tag.value;
+		})
 
 		let formData = new FormData();
 		formData.append('blogimg0', imgdata1);
 		formData.append('blogimg1', imgdata2);
 		formData.append('blogimg2', imgdata3);
 		formData.append('title', title);
-		formData.append('body', body);
-		formData.append('tags', tags);
+		formData.append('content', body);
+		formData.append('tags', tagsValue);
 		dispatch(CreateBlogFun(formData, userdata.token));
-
-		// SetTitle('');
-		// SetBody('');  
-		// SetTags('');
-		// setImg1({src2: '',imgdata2: ''});    
-		// setImg2({src2: '',imgdata2: ''});    
-		// setImg3({src2: '', imgdata2: ''});  
+		SetTitle('');
+		SetBody('');  
+		SetTags('');
+		setImg1({src2: '',imgdata2: ''});    
+		setImg2({src2: '',imgdata2: ''});    
+		setImg3({src2: '', imgdata2: ''});  
 	}
 
 
