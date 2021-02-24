@@ -27,7 +27,7 @@ const SelfBlogs = ({userdata}) =>{
 				<div className="pb-2">
 				<img src={`http://localhost:4500/${userdata.user.profilePic}`} className="blogAdminImg rounded-circle" />
 				<span className="pl-3"><strong>{blog.title}</strong></span>
-				<span className="editDots">
+				<span className="editDots pr-3">
     				<FontAwesomeIcon icon={faEllipsisV} className="fa-1x" />
 				</span>
 				</div>

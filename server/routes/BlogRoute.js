@@ -2,7 +2,7 @@ const express = require('express');
 const multer  = require('multer');
 const {getPrivateData} = require('../middleware/Private');
 const {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog} = require('../controller/BlogController');
-
+const {BlogComments, CreateBlog} = require('../controller/CommentController');
 
 const path = require('path');
 const storage = multer.diskStorage({
@@ -31,6 +31,9 @@ blogs.post('/newblog', getPrivateData, upload.any('blogimg'),  InsertBlog);
 blogs.get('/adminblogs', getPrivateData, GetUsersAllBlog);
 blogs.put('/editblog', getPrivateData, upload.array('blogimg', 3), EditBlog);
 blogs.delete('/deleteblog', getPrivateData, DeleteBlog);
+blogs.get('/comment',  BlogComments);
+blogs.post('/storeComment', CreateBlog);
+
 
 
 module.exports = blogs;

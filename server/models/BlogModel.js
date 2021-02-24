@@ -24,8 +24,10 @@ const BlogSchema = new mongoose.Schema({
 		ref: 'user',  
 	}],
 	comments:[{
-		type: ObjectId,
-		ref: 'user',
+		commenterId:{
+			type: ObjectId,
+			ref: 'user',
+		},
 		comment: String,	
 		date:{
 			type: Date,
