@@ -109,6 +109,14 @@ label span input {
 .blog_content{
   line-height: 2px;
 }
+
+.blogAdminImg{
+  height: 40px;
+  width: 40px;
+}
+.editDots{
+  float: right;
+}
 @media only screen and (max-width: 992px) {
   .content-image{
 	  width: 100%;
