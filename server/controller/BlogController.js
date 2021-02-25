@@ -8,7 +8,6 @@ const InsertBlog = async(req, res) =>{
 		return img.filename;
 	})
 	const blogdata = req.body;
-	console.log(blogdata)
 	const {title, content, tags} = blogdata;
 	try {
 		const blog = await Blog.create({title, content, blogpic, adminid, tags});
@@ -25,7 +24,6 @@ const GetUsersAllBlog = async(req, res) =>{
 	const {adminid} = data.userId;
 	try{
 		const blogs = await Blog.find(adminid);
-		console.log(blogs)
 		if(!blogs){
 			return res.status(200).json({success: true, message:'No Blogs Found'})
 		}
@@ -43,7 +41,6 @@ const EditBlog = async(req, res) =>{
 	const adminid = req.user._id;
 	const _id = req.body.blogid;
 	const data = req.body;
-	console.log(data.tags);
 	try{
 		const blog = await Blog.findOne({$and:[{_id}, {adminid}]}); 
 		if(!blog) return res.status(403).json({success:false, message:'No User found'});
@@ -55,7 +52,6 @@ const EditBlog = async(req, res) =>{
 		blog.adminid = adminid || blog.adminid;
 
 		const updatedUser = await blog.save();
-		console.log(blog);
 		res.status(200).json({success:true, blog})
 	}
 	catch(e){
