@@ -1,7 +1,14 @@
 import {useState, useEffect} from 'react';
 import {getBlogComments} from '../../actions/CommentController';
 import {useDispatch, useSelector} from 'react-redux';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faShare} from '@fortawesome/free-solid-svg-icons'
+
+import './Style.css';
+
 const ShowComments = ({userdata, blogId, blogdata}) =>{
+
+	const [commentinput, SetCommentInput] = useState('');
 
 	const blogDetail = blogdata.data.blogs[0];
 	const dispatch = useDispatch();
@@ -15,8 +22,16 @@ const ShowComments = ({userdata, blogId, blogdata}) =>{
 		dispatch(getBlogComments(blogId));
 	}, [])
 
+
+	const submitComment = (e) =>{
+		e.preventDefault();
+		const adminid = userdata.user._id;
+		console.log(commentinput, blogId, adminid );
+	}
+
 	return(
-		<div className="row no-gutters pt-3">
+		<>
+		<div className="row no-gutters py-3">
 			<div className="col-md-2 col-3 pl-3 pb-3 border-bottom">
 				<img src={`http://localhost:4500/${userdata.user.profilePic}`} className="blogAdminImg rounded-circle" />
 			</div>
@@ -44,6 +59,18 @@ const ShowComments = ({userdata, blogId, blogdata}) =>{
 				)		
 			})}
 		</div>
+		<div className="row no-gutters formBody py-2">
+			<div className="col-md-2 col-2 pt-2 pl-2">
+					<img src={`http://localhost:4500/${userdata.user.profilePic}`} className="blogAdminImg rounded-circle" />
+			</div>
+			<div className="col-md-9 col-9 pt-2">
+				<input className="form-control" value={commentinput} onChange={(e)=> SetCommentInput(e.target.value)} />
+			</div>
+			<div className="col-md-1 col-1 pt-2">
+				<FontAwesomeIcon icon={faShare} onClick={submitComment} className="fa-1x mt-2 ml-2 LikeIcon text-dark" />
+			</div>
+		</div>
+		</>
 
 		)
 }

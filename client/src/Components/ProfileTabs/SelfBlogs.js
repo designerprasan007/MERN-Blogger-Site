@@ -64,15 +64,8 @@ const SelfBlogs = ({userdata}) =>{
 		</div>	
 
 		 <Modal show={showModal.status} onHide={() => SetShowModal({...showModal, status:false})}>
+		 <Modal.Header closeButton></Modal.Header>
 	        <ShowComments userdata={userdata} blogdata={blogs} blogId = {showModal.blogId} />
-	        <Modal.Footer>
-	          <Button variant="secondary" onClick={() => SetShowModal({...showModal, status:false})}>
-	            Close
-	          </Button>
-	          <Button variant="primary" onClick={() => SetShowModal(false)}>
-	            Save Changes
-	          </Button>
-	        </Modal.Footer>
 	      </Modal>
       </>
 		)
