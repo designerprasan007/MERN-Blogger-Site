@@ -4,8 +4,7 @@ const User = require('../models/UserModel');
 
 const BlogComments = async (req, res)=>{
     const _id = req.body.blogid;
-
-    const comment = await Blog.findOne({_id});
+    const comment = await Blog.findById({_id}).populate('comments.commenterId','username userPic');
     const comments = comment.comments; 
     res.status(200).json({success: true, comments}) 
 }

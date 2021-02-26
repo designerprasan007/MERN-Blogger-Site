@@ -17,7 +17,6 @@ const SelfBlogs = ({userdata}) =>{
 		dispatch(GetAdminBlog(userdata.token));
 	}, [])
 	const {blogs} = useSelector(state=>state.BlogReducer);
-	console.log(blogs);
 	return(
 		<>
 		<div className="row blogHero no-gutters">
@@ -52,8 +51,7 @@ const SelfBlogs = ({userdata}) =>{
 		    				(<small>Give a first Like</small>)
 		    				:(blog.likes)}</span>
 		    			<p className="text-left blog_content pl-2 pt-2"><small>{blog.content}</small></p>
-						<span className="pl-2">{blog.comments.length !== 0 &&  
-		    				(blog.likes)}</span>
+		    			<p className="text-left blog_content pl-2 pt-2"><small>{blog.tags}</small></p>
 			    	</div>
 				</div>
 					))
@@ -61,10 +59,7 @@ const SelfBlogs = ({userdata}) =>{
 		</div>	
 
 		 <Modal show={showModal.status} onHide={() => SetShowModal({...showModal, status:false})}>
-	        <Modal.Header closeButton>
-	          <Modal.Title>Modal heading</Modal.Title>
-	        </Modal.Header>
-	        <ShowComments userdata={userdata} blogId = {showModal.blogId} />
+	        <ShowComments userdata={userdata} blogdata={blogs} blogId = {showModal.blogId} />
 	        <Modal.Footer>
 	          <Button variant="secondary" onClick={() => SetShowModal({...showModal, status:false})}>
 	            Close

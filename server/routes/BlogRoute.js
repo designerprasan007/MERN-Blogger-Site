@@ -33,7 +33,7 @@ blogs.put('/editblog', getPrivateData, upload.array('blogimg', 3), EditBlog);
 blogs.delete('/deleteblog', getPrivateData, DeleteBlog);
 
 
-blogs.get('/comment',  BlogComments);
+blogs.post('/comment',  BlogComments);
 blogs.post('/storeComment', CreateComment);
 blogs.put('/editComment', getPrivateData, EditComment);
 blogs.delete('/deleteComment', getPrivateData, DeleteComment);
