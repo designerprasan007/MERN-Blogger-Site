@@ -31,7 +31,7 @@ const CreateComment = async (req, res) =>{
         },{
             new:true
         })
-        res.statue(200).json({success:true, update});
+        res.status(200).json({success:true, update});
     }
     catch(err){
         console.log(err);
@@ -49,9 +49,8 @@ const EditComment = async(req, res) =>{
         const comment = blog.comments;
         comment.map(async(com)=>{
             if(com._id == _id){
-                console.log(com)
                 com.comment = edit_comment ? edit_comment : com.comment;
-                await blog.save()
+                await blog.save();
             }
         })
         res.status(200).json({success:true, comment});
@@ -62,4 +61,27 @@ const EditComment = async(req, res) =>{
     }
 }
 
-module.exports = {BlogComments, CreateComment, EditComment}
+const DeleteComment = async(req, res) =>{
+    try {
+        const user = req.user;
+        const _id = req.body.id;
+        const blogid = req.body.blogid;
+        const userid = user._id.toString();
+
+        const update = await Blog.findByIdAndUpdate(blogid,{
+            $pull:{
+                comments:{
+                  _id
+                }
+            }
+        },{
+            new:true
+        })
+        res.status(200).json({success: true, update});
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({success:false, message: e.message})
+    }
+}
+
+module.exports = {BlogComments, CreateComment, EditComment, DeleteComment}

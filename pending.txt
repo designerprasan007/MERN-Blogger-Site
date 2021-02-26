@@ -1,4 +1,5 @@
 pending works:
-1. blog delete
-2. comment edit
-   24/02/2021 17:44
+1. blog CRUD backend done, front end pending
+2. Likes CRUD pending
+3. forgot password pending
+4. real time comment and like pass pending
