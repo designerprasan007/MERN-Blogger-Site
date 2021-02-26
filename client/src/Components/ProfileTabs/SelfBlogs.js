@@ -51,7 +51,12 @@ const SelfBlogs = ({userdata}) =>{
 		    				(<small>Give a first Like</small>)
 		    				:(blog.likes)}</span>
 		    			<p className="text-left blog_content pl-2 pt-2"><small>{blog.content}</small></p>
-		    			<p className="text-left blog_content pl-2 pt-2"><small>{blog.tags}</small></p>
+		    			<p className="text-left blog_content pl-2 pt-2">{
+		    				blog.tags.split(',').map((t, i)=>{
+		    					return(<a href="#" key={i}>#{t } </a>)
+		    				})
+
+		    			}</p>
 			    	</div>
 				</div>
 					))
