@@ -17,14 +17,36 @@
  	font-weight: bold;
 }   
 
+input.form-control.commentinput::placeholder {
+    font-size: 10px;
+}
+
+
 
 /* show comments */
 .modal-content{
-	height: 100vh !important;
+	height: 90vh !important;
 	overflow-y: scroll;
 }
-.formBody{
-	position: absolute;
-	bottom: 5px;
-	width: 100%;
+.commentSection{
+    height: 67vh;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+@media only screen and (min-width: 765px) and (max-width: 800px)  {
+ 	.commentSection{
+	    height: 75vh;
+	    overflow-y: scroll;
+	    width: 100%;
+	}
+}
+
+
+@media only screen and (max-width: 600px) {
+ 	.commentSection{
+	    height: 74vh !important;
+	    overflow-y: scroll;
+	    width: 100%;
+	}
 }

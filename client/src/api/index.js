@@ -38,3 +38,15 @@ export const getAdminBlogApi = (token) => axios.get(`${blogUrl}/adminblogs`, {
 // comments related
 
 export const getCommentsApi = (blogid) => axios.post(`${blogUrl}/comment`, {blogid});
+export const storeCommentApi = (blogid, token, comment) =>axios.post(`${blogUrl}/storeComment`, {blogid, comment},{
+	headers:{
+		Authorization: 'Bearer ' + token
+	}
+})
+
+export const deleteCommentApi = (id, token, blogid) => axios.post(`${blogUrl}/deleteComment`, {id, blogid},
+{
+	headers:{
+		Authorization: 'Bearer ' + token
+	}
+})

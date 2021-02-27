@@ -10,8 +10,11 @@ const BlogComments = async (req, res)=>{
 }
 
 const CreateComment = async (req, res) =>{
-    const {adminid, blogid, comment} = req.body;
-    console.log(adminid, blogid, comment);
+    const {blogid, comment} = req.body;
+    const data = req.user;
+    const adminid = data.userId;
+
+    // console.log(adminid, blogid, comment);
     try{
         if(!adminid || !blogid || !comment) return res.status(400).json({success: false, error:"All Fields Required"});
 

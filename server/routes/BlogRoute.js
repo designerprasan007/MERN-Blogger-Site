@@ -34,9 +34,9 @@ blogs.delete('/deleteblog', getPrivateData, DeleteBlog);
 
 
 blogs.post('/comment',  BlogComments);
-blogs.post('/storeComment', CreateComment);
+blogs.post('/storeComment', getPrivateData, CreateComment);
 blogs.put('/editComment', getPrivateData, EditComment);
-blogs.delete('/deleteComment', getPrivateData, DeleteComment);
+blogs.post('/deleteComment', getPrivateData, DeleteComment);
 
 
 
