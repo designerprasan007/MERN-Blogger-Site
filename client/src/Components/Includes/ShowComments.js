@@ -17,7 +17,7 @@ const ShowComments = ({userdata, blogId, blogdata}) =>{
 	const dispatch = useDispatch();
 
 	const {comments} = useSelector(state=>state.CommentReducer);
-	const comment = comments?.data?.comments 
+	const comment = comments
 
 	console.log(comment)
 
