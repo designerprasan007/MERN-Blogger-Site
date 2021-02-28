@@ -6,7 +6,7 @@ const BlogComments = async (req, res)=>{
     const _id = req.body.blogid;
     const comment = await Blog.findById({_id}).populate('comments.commenterId','username userPic');
     const comments = comment.comments; 
-    res.status(200).json({success: true, comments}) 
+    res.status(200).json({comments}) 
 }
 
 const CreateComment = async (req, res) =>{
@@ -32,8 +32,8 @@ const CreateComment = async (req, res) =>{
             }
         },{
             new:true
-        })
-        res.status(200).json({success:true, update});
+        }).populate('comments.commenterId','username userPic');
+        res.status(200).json({update});
     }
     catch(err){
         console.log(err);
@@ -55,7 +55,7 @@ const EditComment = async(req, res) =>{
                 await blog.save();
             }
         })
-        res.status(200).json({success:true, comment});
+        res.status(200).json({comment});
     }
     catch(err){
         console.log(err);
@@ -65,10 +65,8 @@ const EditComment = async(req, res) =>{
 
 const DeleteComment = async(req, res) =>{
     try {
-        const user = req.user;
         const _id = req.body.id;
         const blogid = req.body.blogid;
-        const userid = user._id.toString();
 
         const update = await Blog.findByIdAndUpdate(blogid,{
             $pull:{
@@ -78,8 +76,8 @@ const DeleteComment = async(req, res) =>{
             }
         },{
             new:true
-        })
-        res.status(200).json({success: true, update});
+        }).populate('comments.commenterId','username userPic');
+        res.status(200).json({update});
     } catch(e) {
         console.log(e);
         res.status(500).json({success:false, message: e.message})
