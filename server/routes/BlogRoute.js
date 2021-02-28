@@ -1,7 +1,7 @@
 const express = require('express');
 const multer  = require('multer');
 const {getPrivateData} = require('../middleware/Private');
-const {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog} = require('../controller/BlogController');
+const {AllBlogs, InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog} = require('../controller/BlogController');
 const {BlogComments, CreateComment,EditComment, DeleteComment} = require('../controller/CommentController');
 
 const path = require('path');
@@ -33,6 +33,7 @@ blogs.put('/editblog', getPrivateData, upload.array('blogimg', 3), EditBlog);
 blogs.delete('/deleteblog', getPrivateData, DeleteBlog);
 
 
+blogs.get('/allBlogs', AllBlogs);
 blogs.post('/comment',  BlogComments);
 blogs.post('/storeComment', getPrivateData, CreateComment);
 blogs.put('/editComment', getPrivateData, EditComment);

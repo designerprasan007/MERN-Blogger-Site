@@ -1,9 +1,22 @@
 import Nav from '../Includes/Nav';
+import {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllBlogs} from '../../actions/BlogController';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHeart} from '@fortawesome/free-solid-svg-icons'
 
 import './AllBlog.css'
 const Blog = () =>{
+
+	const dispatch = useDispatch();	
+	useEffect(()=>{
+		dispatch(getAllBlogs())
+	}, [])
+
+	const blogs = useSelector(state=>state.BlogReducer)
+
+	console.log(blogs);
+
 	return(
 		<>
 			<Nav />

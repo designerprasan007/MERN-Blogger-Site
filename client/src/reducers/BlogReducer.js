@@ -9,6 +9,8 @@ export const BlogReducer = (state={}, action) =>{
 			return({success: true, blogs: action.payload})
 		case 'GET_ADMIN_BLOG_ERROR':
 			return({error:action.payload});
+		case 'ALL_BLOGS':
+			return({blogs: action.payload});
 		default:
 			return state
 	}

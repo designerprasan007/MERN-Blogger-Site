@@ -1,6 +1,18 @@
 const Blog = require('../models/BlogModel');
 const User = require('../models/UserModel');
 
+
+const AllBlogs = async(req, res) =>{
+	try{
+		const blogs = await Blog.find().populate('comments.commenterId','username userPic').populate('adminid','username userPic');
+		res.status(200).json(blogs);
+	}
+	catch(e){
+		console.log(e);
+		res.status(500).json({success:false, message:e.message})
+	}
+}
+
 const InsertBlog = async(req, res) =>{
 	const data = req.user;
 	const adminid = data.userId;
@@ -73,6 +85,6 @@ const DeleteBlog = async(req, res) =>{
 	}
 }
 
-module.exports = {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog};
+module.exports = {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog, AllBlogs};
 
 

@@ -50,3 +50,5 @@ export const deleteCommentApi = (id, token, blogid) => axios.post(`${blogUrl}/de
 		Authorization: 'Bearer ' + token
 	}
 })
+
+export const GetAllBlogApi = () =>axios.get(`${blogUrl}/allBlogs`);
