@@ -6,21 +6,21 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHeart, faEllipsisV, faComment, faShare} from '@fortawesome/free-solid-svg-icons'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import ShowComments from '../Includes/ShowComments';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
+import Moment from 'react-moment';
 
 import './AllBlog.css'
 const Blog = () =>{
 	const dispatch = useDispatch();	
 
 	const [isLoggedin, setisLoggedin] = useState(false);
-	const [userData, setUserData] = useState({})
 	const [showModal, SetShowModal] = useState({status:false, blogdata:''});
 
 
 	const {userdata} = useSelector((state)=>state.AuthReducer);
 
+	console.log(userdata?.user?._id);
 	useEffect(() => {
-		setUserData(localStorage.getItem('Userinfo'))
 		if (localStorage.getItem('Userinfo') !== null) {
 			setisLoggedin(true);
 		}
@@ -32,7 +32,7 @@ const Blog = () =>{
 
 	const blogs = useSelector(state=>state.BlogReducer)
 
-	console.log(blogs.blogs)
+	console.log(blogs?.blogs)
 
 	return(
 		<>
@@ -48,11 +48,13 @@ const Blog = () =>{
 								return(
 									 <div key={blog._id}  className="list-group-item list-group-item-action">
 									  	<div className="pb-2">
-											<img src={`http://localhost:4500/${blog.adminid.userPic}`} className="blogAdminImg rounded-circle" />
-											<span className="pl-3"><strong>{blog.adminid.username}</strong></span>
-											<span className="editDots pr-3">
-							    				<FontAwesomeIcon icon={faEllipsisV} className="fa-1x" />
-											</span>
+											<img src={`http://localhost:4500/${blog?.adminid?.userPic}`} className="blogAdminImg rounded-circle" />
+											<span className="pl-3"><strong>{blog?.adminid?.username}</strong></span>
+											{userdata?.user?._id == blog?.adminid?._id && (
+												<span className="editDots pr-3">
+							    					<FontAwesomeIcon icon={faEllipsisV} className="fa-1x" />
+												</span>
+											)}
 										</div>
 										<CarouselProvider naturalSlideWidth={20} naturalSlideHeight={20} totalSlides={blog.blogpic.length}>
 									        <Slider>
@@ -72,7 +74,7 @@ const Blog = () =>{
 						    			</p>	
 									    <div className="d-flex pt-4 w-100 justify-content-between">
 									      <h5 className="mb-1">{blog.title}</h5>
-									      <small>{blog.created}</small>
+									      <small> <Moment fromNow>{blog.created.slice(0, -2)}</Moment></small>
 									    </div>
 									    <p className="mb-1">{blog.content}</p>
 									    <p>

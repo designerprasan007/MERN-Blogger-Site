@@ -32,10 +32,10 @@ const SelfBlogs = ({userdata}) =>{
 				</span>
 				</div>
 					<div className="card content text-left">
-						<CarouselProvider naturalSlideWidth={20} naturalSlideHeight={20} totalSlides={blog.blogpic.length}>
+						<CarouselProvider naturalSlideWidth={20} naturalSlideHeight={20} totalSlides={blog?.blogpic?.length}>
 					        <Slider>
 					        	{
-					        		blog.blogpic.map((img, i)=>(
+					        		blog?.blogpic?.map((img, i)=>(
 					        			<Slide index={i} key={i}><img className="blogimg" src={`http://localhost:4500/${img}`} /></Slide>
 					        		))
 					        	}
@@ -48,12 +48,12 @@ const SelfBlogs = ({userdata}) =>{
 			    			<FontAwesomeIcon icon={faComment} onClick={()=>SetShowModal({...showModal, status:true, blogdata:blog})}  className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
 			    			<FontAwesomeIcon icon={faShare} className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
 		    			</p>	
-		    			<span className="pl-2">{blog.likes.length ==0 ? 
+		    			<span className="pl-2">{blog?.likes?.length ==0 ? 
 		    				(<small>Give a first Like</small>)
 		    				:(blog.likes)}</span>
 		    			<p className="text-left blog_content pl-2 pt-2"><small>{blog.content}</small></p>
 		    			<p className="text-left blog_content pl-2 pt-2">{
-		    				blog.tags.split(',').map((t, i)=>{
+		    				blog?.tags?.split(',').map((t, i)=>{
 		    					return(<a href="#" key={i}>#{t } </a>)
 		    				})
 

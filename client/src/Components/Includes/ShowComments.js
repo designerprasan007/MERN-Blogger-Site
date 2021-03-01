@@ -4,6 +4,7 @@ import {GetAdminBlog} from '../../actions/BlogController';
 import {useDispatch, useSelector} from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faShare, faTrash} from '@fortawesome/free-solid-svg-icons'
+import Moment from 'react-moment';
 
 import './Style.css';
 
@@ -73,6 +74,7 @@ const ShowComments = ({userdata, blogdata}) =>{
 								</div>
 								<div className="col-md-8 col-7 border-bottom pb-2">
 								<p><strong>{com.commenterId.username}</strong><span className="pl-2">{com.comment}</span></p>
+								<p><Moment fromNow>{com.date.slice(0, -2)}</Moment></p>
 									{deletecomment.status && deletecomment.comid ==com._id ?
 										(<button className="btn btn-sm btn-danger" onClick={(e) => handleDelete(com._id)} >Delete</button>):
 									 ('')}

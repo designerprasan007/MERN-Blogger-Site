@@ -17,7 +17,8 @@ const BlogSchema = new mongoose.Schema({
 	tags: String,
 	created:{
 		type: Date,
-		default : new Date()
+		required: true,
+        default: Date.now
 	},
 	likes:[{
 		type: ObjectId,
@@ -31,7 +32,8 @@ const BlogSchema = new mongoose.Schema({
 		comment: String,	
 		date:{
 			type: Date,
-			default : new Date()
+			required: true,
+       		default: Date.now
 		}
 	}]
 

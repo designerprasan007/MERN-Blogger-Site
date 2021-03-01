@@ -13,6 +13,7 @@ export const GetAdminBlog = (token) => async(dispatch) =>{
 	try{
 		const blogs = await getAdminBlogApi(token);
 		dispatch({type: 'GET_ADMIN_BLOG', payload:blogs})
+		console.log(blogs);
 	}
 	catch(e){
 		dispatch({type:'GET_ADMIN_BLOG_ERROR', payload:e.message})

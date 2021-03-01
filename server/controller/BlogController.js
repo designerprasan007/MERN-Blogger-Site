@@ -15,7 +15,7 @@ const AllBlogs = async(req, res) =>{
 
 const InsertBlog = async(req, res) =>{
 	const data = req.user;
-	const adminid = data.userId;
+	const adminid = data._id;
 	const blogpic = req.files.map((img) =>{
 		return img.filename;
 	})
@@ -23,7 +23,7 @@ const InsertBlog = async(req, res) =>{
 	const {title, content, tags} = blogdata;
 	try {
 		const blog = await Blog.create({title, content, blogpic, adminid, tags});
-		res.status(200).json({success: true})
+		res.status(200).json({success: true, blog})
 	} catch(e) {
 		console.log(e);
 		res.status(500).json({success:false, message:e});
@@ -33,9 +33,10 @@ const InsertBlog = async(req, res) =>{
 
 const GetUsersAllBlog = async(req, res) =>{
 	const data = req.user;
-	const {adminid} = data.userId;
+	const adminid = data._id;
 	try{
-		const blogs = await Blog.find(adminid).populate('adminid','username userPic');
+		const blogs = await Blog.find({adminid}).populate('adminid','username userPic');
+		console.log(blogs);
 		if(!blogs){
 			return res.status(200).json({success: true, message:'No Blogs Found'})
 		}
