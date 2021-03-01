@@ -11,12 +11,13 @@ import {Modal, Button} from 'react-bootstrap';
 import './Style.css'
 const SelfBlogs = ({userdata}) =>{
 	const [imageNum, setimageNum] = useState('');
-	const [showModal, SetShowModal] = useState({status:false, blogId:''});
+	const [showModal, SetShowModal] = useState({status:false, blogdata:''});
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(GetAdminBlog(userdata.token));
 	}, [])
 	const {blogs} = useSelector(state=>state.BlogReducer);
+	console.log(blogs?.data?.blogs);
 	return(
 		<>
 		<div className="row blogHero no-gutters">
@@ -44,7 +45,7 @@ const SelfBlogs = ({userdata}) =>{
 					    </CarouselProvider>			
 			    		<p className="text-left pl-3 pt-3">
 			    			<FontAwesomeIcon icon={faHeart} className="fa-1x mr-3 LikeIcon text-dark" />
-			    			<FontAwesomeIcon icon={faComment} onClick={()=>SetShowModal({...showModal, status:true, blogId:blog._id})}  className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
+			    			<FontAwesomeIcon icon={faComment} onClick={()=>SetShowModal({...showModal, status:true, blogdata:blog})}  className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
 			    			<FontAwesomeIcon icon={faShare} className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
 		    			</p>	
 		    			<span className="pl-2">{blog.likes.length ==0 ? 
@@ -64,7 +65,7 @@ const SelfBlogs = ({userdata}) =>{
 		</div>	
 
 		 <Modal show={showModal.status} onHide={() => SetShowModal({...showModal, status:false})}>
-	        <ShowComments userdata={userdata} blogdata={blogs} blogId = {showModal.blogId} />
+	        <ShowComments userdata={userdata} blogdata={showModal.blogdata} />
 	      </Modal>
       </>
 		)

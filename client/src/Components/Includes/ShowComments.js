@@ -7,19 +7,25 @@ import {faShare, faTrash} from '@fortawesome/free-solid-svg-icons'
 
 import './Style.css';
 
-const ShowComments = ({userdata, blogId, blogdata}) =>{
+const ShowComments = ({userdata, blogdata}) =>{
 
 	const [commentinput, SetCommentInput] = useState('');
 	const [deletecomment, SetDeleteComment] = useState({status:false, comid:''});
 	const [commentId, SetCommentId] = useState('');
 
-	const blogDetail = blogdata.data.blogs[0];
+	// console.log(blogdata)
+
+	const blogDetail = blogdata;
 	const dispatch = useDispatch();
+
+	console.log(blogDetail);
+	console.log(blogdata.tags);
+
+	const blogId = blogdata._id;
+
 
 	const comments = useSelector(state=>state.CommentReducer);
 	const comment = comments.state
-
-	console.log(comment)
 
 	const token = userdata.token;
 
@@ -47,7 +53,7 @@ const ShowComments = ({userdata, blogId, blogdata}) =>{
 			<div className="col-md-10 col-9 border-bottom">
 				<p><strong>{blogDetail.title}</strong><span className="pl-2">{blogDetail.content}</span></p>
 				<p>{
-    				blogDetail.tags.split(',').map((t, i)=>{
+    				blogdata.tags.split(',').map((t, i)=>{
     					return(<a href="#" key={i}>#{t } </a>)
     				})
 
