@@ -35,7 +35,7 @@ const GetUsersAllBlog = async(req, res) =>{
 	const data = req.user;
 	const {adminid} = data.userId;
 	try{
-		const blogs = await Blog.find(adminid);
+		const blogs = await Blog.find(adminid).populate('adminid','username userPic');
 		if(!blogs){
 			return res.status(200).json({success: true, message:'No Blogs Found'})
 		}
