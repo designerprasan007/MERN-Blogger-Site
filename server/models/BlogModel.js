@@ -21,8 +21,10 @@ const BlogSchema = new mongoose.Schema({
         default: Date.now
 	},
 	likes:[{
-		type: ObjectId,
-		ref: 'user',  
+		likerId:{
+			type: ObjectId,
+			ref: 'user',
+		}  
 	}],
 	comments:[{
 		commenterId:{
@@ -37,7 +39,11 @@ const BlogSchema = new mongoose.Schema({
 		}
 	}]
 
-})
+}
+// {
+// 	timeStamps: true
+// }
+)
 
 const Blog = mongoose.model('blog', BlogSchema);
 

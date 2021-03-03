@@ -1,5 +1,6 @@
 pending works:
-1. blog CRUD backend done, front end pending
-2. Likes CRUD pending
+// 1. blog CRUD backend done, front end pending
+2. Likes CD pending
 3. forgot password pending
 4. real time comment and like pass pending
+5. notification planned

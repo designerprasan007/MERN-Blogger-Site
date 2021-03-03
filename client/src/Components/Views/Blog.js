@@ -1,7 +1,7 @@
 import Nav from '../Includes/Nav';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllBlogs} from '../../actions/BlogController';
+import {getAllBlogs, LikeControl} from '../../actions/BlogController';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHeart, faEllipsisV, faComment, faShare} from '@fortawesome/free-solid-svg-icons'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
@@ -15,11 +15,12 @@ const Blog = () =>{
 
 	const [isLoggedin, setisLoggedin] = useState(false);
 	const [showModal, SetShowModal] = useState({status:false, blogdata:''});
-
+	const [logedinError, setLoggedinError] = useState(false);
 
 	const {userdata} = useSelector((state)=>state.AuthReducer);
+	const token = userdata?.token;
+	console.log(token);
 
-	console.log(userdata?.user?._id);
 	useEffect(() => {
 		if (localStorage.getItem('Userinfo') !== null) {
 			setisLoggedin(true);
@@ -32,7 +33,15 @@ const Blog = () =>{
 
 	const blogs = useSelector(state=>state.BlogReducer)
 
-	console.log(blogs?.blogs)
+	const HandleLike = (blogid) =>{
+		if(!isLoggedin){
+			setLoggedinError(true);
+			setTimeout(() => setLoggedinError(false), 5000);
+			return
+		}
+		dispatch(LikeControl(blogid, token))
+		console.log(blogid)
+	}
 
 	return(
 		<>
@@ -67,11 +76,12 @@ const Blog = () =>{
 									        <ButtonBack className="leftCaroselBtn">Back</ButtonBack>
 				        					<ButtonNext className="rightCaroselBtn">Next</ButtonNext>
 									    </CarouselProvider>	
-									    <p className="text-left pl-3 pt-3">
-							    			<FontAwesomeIcon icon={faHeart} className="fa-1x mr-3 LikeIcon text-dark" />
+									    <div className="text-left pl-3 pt-3">
+							    			<FontAwesomeIcon icon={faHeart} onClick={(e) => HandleLike(blog._id)} className="fa-1x mr-3 LikeIcon text-dark" />
 							    			<FontAwesomeIcon icon={faComment}  onClick={()=>SetShowModal({...showModal, status:true, blogdata:blog})}  className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
 							    			<FontAwesomeIcon icon={faShare} className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
-						    			</p>	
+									    	{logedinError &&(<p className="text-danger">Please Login to Give Like</p>)}
+						    			</div>	
 									    <div className="d-flex pt-4 w-100 justify-content-between">
 									      <h5 className="mb-1">{blog.title}</h5>
 									      <small> <Moment fromNow>{blog.created.slice(0, -2)}</Moment></small>
@@ -84,7 +94,11 @@ const Blog = () =>{
 						    				})
 
 						    			}</p>
-									    <FontAwesomeIcon icon={faHeart} /><small className="pl-2 text-muted">Likes 10</small>
+									    <FontAwesomeIcon icon={faHeart} /><small className="pl-2 text-muted">
+									    <span className="pl-2">{blog?.likes?.length ==0 ? 
+					    				(<small>Give a first Like</small>)
+					    				:(blog.likes?.length) + ' +peoples liked'}</span>
+									    </small>
 									  </div>
 								)
 							})}

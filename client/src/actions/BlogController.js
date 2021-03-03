@@ -29,3 +29,7 @@ export const getAllBlogs = () => async(dispatch) =>{
 		console.log(e)
 	}
 }
+
+export const LikeControl = (blogid, token) =>async(dispatch) =>{
+	console.log(blogid, token);
+}

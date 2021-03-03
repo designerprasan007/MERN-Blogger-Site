@@ -4,7 +4,7 @@ const User = require('../models/UserModel');
 
 const BlogComments = async (req, res)=>{
     const _id = req.body.blogid;
-    const comment = await Blog.findById({_id}).populate('comments.commenterId','username userPic');
+    const comment = await Blog.findById({_id}).populate('comments.commenterId','username userPic').sort({ date: -1 });
     const comments = comment.comments; 
     res.status(200).json({comments}) 
 }
@@ -14,7 +14,6 @@ const CreateComment = async (req, res) =>{
     const data = req.user;
     const adminid = data._id;
 
-    console.log(adminid, blogid, comment);
     try{
         if(!adminid || !blogid || !comment) return res.status(400).json({success: false, error:"All Fields Required"});
 

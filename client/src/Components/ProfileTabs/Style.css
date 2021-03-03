@@ -78,7 +78,7 @@ label span input {
 .rightCaroselBtn{
     position: absolute !important;
     top: 38%  !important;
-    right: 0 !important;
+    right:  -19px !important;
     visibility: hidden;
 
 }  

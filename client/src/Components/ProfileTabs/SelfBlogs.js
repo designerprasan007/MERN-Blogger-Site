@@ -50,7 +50,8 @@ const SelfBlogs = ({userdata}) =>{
 		    			</p>	
 		    			<span className="pl-2">{blog?.likes?.length ==0 ? 
 		    				(<small>Give a first Like</small>)
-		    				:(blog.likes)}</span>
+		    				:(blog.likes?.length) + ' +peoples liked'}
+	    				</span>
 		    			<p className="text-left blog_content pl-2 pt-2"><small>{blog.content}</small></p>
 		    			<p className="text-left blog_content pl-2 pt-2">{
 		    				blog?.tags?.split(',').map((t, i)=>{

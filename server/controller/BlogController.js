@@ -4,7 +4,7 @@ const User = require('../models/UserModel');
 
 const AllBlogs = async(req, res) =>{
 	try{
-		const blogs = await Blog.find().populate('comments.commenterId','username userPic').populate('adminid','username userPic');
+		const blogs = await Blog.find().populate('comments.commenterId','username userPic').populate('adminid','username userPic').sort({ created: -1 });
 		res.status(200).json(blogs);
 	}
 	catch(e){
@@ -35,8 +35,7 @@ const GetUsersAllBlog = async(req, res) =>{
 	const data = req.user;
 	const adminid = data._id;
 	try{
-		const blogs = await Blog.find({adminid}).populate('adminid','username userPic');
-		console.log(blogs);
+		const blogs = await Blog.find({adminid}).populate('adminid','username userPic').sort({ created: -1 });
 		if(!blogs){
 			return res.status(200).json({success: true, message:'No Blogs Found'})
 		}
@@ -86,6 +85,42 @@ const DeleteBlog = async(req, res) =>{
 	}
 }
 
-module.exports = {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog, AllBlogs};
+
+const LikeDislikeBlog = async(req, res) =>{
+	const adminid = req.user._id;
+	const blogid = req.body.blogid;
+
+	try {
+		const blog = await Blog.findById({_id:blogid});
+		const preliked = blog.likes ? blog.likes : [];
+
+
+		var isLiked = preliked.map(like =>{
+			if(toString(like.likerId) == toString(adminid)){
+				return true; 
+			}else{
+				return false;
+			}
+		}) 
+		if(preliked.length == 0 ){
+			isLiked = false
+		}
+
+	    var option = isLiked ? "$pull" : "$addToSet";
+
+    	const update = await Blog.findByIdAndUpdate(blogid, { [option]: { likes: {likerId:adminid} } }, { new: true})
+
+    	const count = update.likes.length 
+
+    	res.status(200).json({count});
+
+	} catch(e) {
+		console.log(e);
+		res.status(500).json({success: false, message:e.message});
+	}
+	 
+}
+
+module.exports = {InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog, AllBlogs, LikeDislikeBlog};
 
 

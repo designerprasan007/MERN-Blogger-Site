@@ -1,7 +1,7 @@
 const express = require('express');
 const multer  = require('multer');
 const {getPrivateData} = require('../middleware/Private');
-const {AllBlogs, InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog} = require('../controller/BlogController');
+const {AllBlogs, InsertBlog, GetUsersAllBlog, EditBlog, DeleteBlog, LikeDislikeBlog} = require('../controller/BlogController');
 const {BlogComments, CreateComment,EditComment, DeleteComment} = require('../controller/CommentController');
 
 const path = require('path');
@@ -34,11 +34,14 @@ blogs.delete('/deleteblog', getPrivateData, DeleteBlog);
 
 
 blogs.get('/allBlogs', AllBlogs);
+// comments
 blogs.post('/comment',  BlogComments);
 blogs.post('/storeComment', getPrivateData, CreateComment);
 blogs.put('/editComment', getPrivateData, EditComment);
 blogs.post('/deleteComment', getPrivateData, DeleteComment);
 
+// likes
+blogs.put('/addLike', getPrivateData, LikeDislikeBlog)
 
 
 module.exports = blogs;
