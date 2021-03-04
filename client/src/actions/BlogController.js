@@ -1,4 +1,4 @@
-import {createBlogApi, getAdminBlogApi, GetAllBlogApi} from '../api/'
+import {createBlogApi, getAdminBlogApi, GetAllBlogApi, LikeBlogAPI} from '../api/'
 
 export const CreateBlogFun = (blogdata, token) => async(dispatch) =>{
 	try {
@@ -31,5 +31,11 @@ export const getAllBlogs = () => async(dispatch) =>{
 }
 
 export const LikeControl = (blogid, token) =>async(dispatch) =>{
+	try {
+		const count = await LikeBlogAPI(blogid, token);
+		console.log(count);
+	} catch (error) {
+		console.log(error);
+	}
 	console.log(blogid, token);
 }

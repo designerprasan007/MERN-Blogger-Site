@@ -90,13 +90,15 @@ const LikeDislikeBlog = async(req, res) =>{
 	const adminid = req.user._id;
 	const blogid = req.body.blogid;
 
+	console.log(adminid);
 	try {
 		const blog = await Blog.findById({_id:blogid});
 		const preliked = blog.likes ? blog.likes : [];
 
+			console.log(preliked);
 
 		var isLiked = preliked.map(like =>{
-			if(toString(like.likerId) == toString(adminid)){
+			if(toString(like.likerId) === toString(adminid)){
 				return true; 
 			}else{
 				return false;
@@ -108,9 +110,11 @@ const LikeDislikeBlog = async(req, res) =>{
 
 	    var option = isLiked ? "$pull" : "$addToSet";
 
+
     	const update = await Blog.findByIdAndUpdate(blogid, { [option]: { likes: {likerId:adminid} } }, { new: true})
 
     	const count = update.likes.length 
+		console.log(count);
 
     	res.status(200).json({count});
 

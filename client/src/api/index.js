@@ -52,3 +52,12 @@ export const deleteCommentApi = (id, token, blogid) => axios.post(`${blogUrl}/de
 })
 
 export const GetAllBlogApi = () =>axios.get(`${blogUrl}/allBlogs`);
+
+
+// like dislike
+
+export const LikeBlogAPI = (blogid, token) => axios.put(`${blogUrl}/addLike`, {blogid},{
+	headers:{
+		Authorization: 'Bearer ' + token
+	}
+})

@@ -19,7 +19,6 @@ const Blog = () =>{
 
 	const {userdata} = useSelector((state)=>state.AuthReducer);
 	const token = userdata?.token;
-	console.log(token);
 
 	useEffect(() => {
 		if (localStorage.getItem('Userinfo') !== null) {
@@ -40,7 +39,6 @@ const Blog = () =>{
 			return
 		}
 		dispatch(LikeControl(blogid, token))
-		console.log(blogid)
 	}
 
 	return(
