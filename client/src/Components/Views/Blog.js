@@ -30,8 +30,10 @@ const Blog = () =>{
 		dispatch(getAllBlogs())
 	}, [])
 
-	const blogs = useSelector(state=>state.BlogReducer)
+	const reducerblogs = useSelector(state=>state.BlogReducer)
+	// console.log();
 
+	const blogs = reducerblogs?.state;
 	const HandleLike = (blogid) =>{
 		if(!isLoggedin){
 			setLoggedinError(true);
@@ -51,7 +53,7 @@ const Blog = () =>{
 					<div className="row">
 						<div className="col-lg-11 col-12">
 							<div className="list-group heroBlog">
-							{blogs?.blogs?.map(blog =>{
+							{blogs?.map(blog =>{
 								return(
 									 <div key={blog._id}  className="list-group-item list-group-item-action">
 									  	<div className="pb-2">

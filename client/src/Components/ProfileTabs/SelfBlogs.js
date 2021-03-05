@@ -16,13 +16,14 @@ const SelfBlogs = ({userdata}) =>{
 	useEffect(() => {
 		dispatch(GetAdminBlog(userdata.token));
 	}, [])
-	const {blogs} = useSelector(state=>state.BlogReducer);
-	console.log(blogs?.data?.blogs);
+	const reducerblogs = useSelector(state=>state.BlogReducer)
+	const blogs = reducerblogs?.state;
+
 	return(
 		<>
 		<div className="row blogHero no-gutters">
 			{
-				blogs?.data?.blogs?.map(blog=>(
+				blogs?.map(blog=>(
 				<div className="col-md-6 col-12 py-3" key={blog._id}>
 				<div className="pb-2">
 				<img src={`http://localhost:4500/${userdata.user.profilePic}`} className="blogAdminImg rounded-circle" />
@@ -44,7 +45,6 @@ const SelfBlogs = ({userdata}) =>{
         					<ButtonNext className="rightCaroselBtn">Next</ButtonNext>
 					    </CarouselProvider>			
 			    		<p className="text-left pl-3 pt-3">
-			    			<FontAwesomeIcon icon={faHeart} className="fa-1x mr-3 LikeIcon text-dark" />
 			    			<FontAwesomeIcon icon={faComment} onClick={()=>SetShowModal({...showModal, status:true, blogdata:blog})}  className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
 			    			<FontAwesomeIcon icon={faShare} className="fa-1x ml-3 mr-3 LikeIcon text-dark" />
 		    			</p>	

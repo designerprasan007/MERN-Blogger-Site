@@ -40,7 +40,7 @@ const GetUsersAllBlog = async(req, res) =>{
 			return res.status(200).json({success: true, message:'No Blogs Found'})
 		}
 		else{
-			return res.status(200).json({success: true, blogs})
+			return res.status(200).json(blogs)
 		}
 	}
 	catch(e){
@@ -90,33 +90,29 @@ const LikeDislikeBlog = async(req, res) =>{
 	const adminid = req.user._id;
 	const blogid = req.body.blogid;
 
-	console.log(adminid);
 	try {
 		const blog = await Blog.findById({_id:blogid});
 		const preliked = blog.likes ? blog.likes : [];
-
-			console.log(preliked);
-
-		var isLiked = preliked.map(like =>{
-			if(toString(like.likerId) === toString(adminid)){
-				return true; 
+		let isLiked = 0;
+		preliked.map(like =>{
+			var convertid = like.likerId.toString(); 
+			var convertadid = adminid.toString();
+			if( convertid === convertadid){
+				isLiked = 1; 
 			}else{
-				return false;
+				isLiked = 0;
 			}
 		}) 
 		if(preliked.length == 0 ){
-			isLiked = false
+			isLiked = 0
 		}
 
-	    var option = isLiked ? "$pull" : "$addToSet";
-
+	    var option = isLiked === 1 ? "$pull" : "$addToSet";
 
     	const update = await Blog.findByIdAndUpdate(blogid, { [option]: { likes: {likerId:adminid} } }, { new: true})
 
-    	const count = update.likes.length 
-		console.log(count);
-
-    	res.status(200).json({count});
+    	const blogs = await Blog.find().populate('comments.commenterId','username userPic').populate('adminid','username userPic').sort({ created: -1 });
+		res.status(200).json(blogs);
 
 	} catch(e) {
 		console.log(e);
