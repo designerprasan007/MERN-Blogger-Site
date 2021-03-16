@@ -51,7 +51,7 @@ export const deleteCommentApi = (id, token, blogid) => axios.post(`${blogUrl}/de
 	}
 })
 
-export const GetAllBlogApi = () =>axios.get(`${blogUrl}/allBlogs`);
+export const GetAllBlogApi = (skipVal, limitVal) =>axios.post(`${blogUrl}/allBlogs`,{skipVal, limitVal});
 
 
 // like dislike

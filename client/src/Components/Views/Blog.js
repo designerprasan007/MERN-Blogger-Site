@@ -11,6 +11,7 @@ import Moment from 'react-moment';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import './AllBlog.css'
+import { BlogReducer } from '../../reducers/BlogReducer';
 const Blog = () =>{
 	const dispatch = useDispatch();	
 
@@ -29,13 +30,12 @@ const Blog = () =>{
 
 	useEffect(()=>{
 
-		dispatch(getAllBlogs())
+		dispatch(getAllBlogs(0, 1))
 	}, [])
 
 	const reducerblogs = useSelector(state=>state.BlogReducer)
-	// console.log();
+	const blogs = reducerblogs
 
-	const blogs = reducerblogs?.state;
 	const HandleLike = (blogid) =>{
 		if(!isLoggedin){
 			setLoggedinError(true);
@@ -43,6 +43,16 @@ const Blog = () =>{
 			return
 		}
 		dispatch(LikeControl(blogid, token))
+	}
+
+
+	const loadBlog = (e) =>{
+		e.preventDefault();
+		const skipVal = reducerblogs?.length;
+		const limitVal = 1;
+		console.log(skipVal);
+		dispatch(getAllBlogs(skipVal, limitVal));
+		
 	}
 
 	const style = {
@@ -112,6 +122,9 @@ const Blog = () =>{
 									  </div>
 								)
 							})}
+							<div className="text-right pt-3">
+								<button className="btn btn-sm btn-primary" onClick={loadBlog}> clickme</button>
+							</div>
 						</div>
 					</div>
 					<div className="col-md-1">

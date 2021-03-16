@@ -20,9 +20,9 @@ export const GetAdminBlog = (token) => async(dispatch) =>{
 	}
 }
 
-export const getAllBlogs = () => async(dispatch) =>{
+export const getAllBlogs = (skipVal, limitVal) => async(dispatch) =>{
 	try{
-		const blogs = await GetAllBlogApi();
+		const blogs = await GetAllBlogApi(skipVal, limitVal);
 		dispatch({type:'ALL_BLOGS', payload: blogs.data})
 	}
 	catch(e){

@@ -3,8 +3,9 @@ const User = require('../models/UserModel');
 
 
 const AllBlogs = async(req, res) =>{
+	const {skipVal, limitVal} = req.body;
 	try{
-		const blogs = await Blog.find().populate('comments.commenterId','username userPic').populate('adminid','username userPic').sort({ created: -1 });
+		const blogs = await Blog.find().skip(skipVal).limit(limitVal).populate('comments.commenterId','username userPic').populate('adminid','username userPic').sort({ created: -1 });
 		res.status(200).json(blogs);
 	}
 	catch(e){

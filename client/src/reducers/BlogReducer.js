@@ -10,7 +10,8 @@ export const BlogReducer = (state=[], action) =>{
 		case 'GET_ADMIN_BLOG_ERROR':
 			return({error:action.payload});
 		case 'ALL_BLOGS':
-			return {state: action.payload};
+			// console.log(action.payload);
+			return [...state, ...action.payload];
 		case 'UPDATE_LIKE':
 			return {state: action.payload};	
 		default:
