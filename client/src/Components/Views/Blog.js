@@ -8,6 +8,7 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import ShowComments from '../Includes/ShowComments';
 import {Modal} from 'react-bootstrap';
 import Moment from 'react-moment';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import './AllBlog.css'
 const Blog = () =>{
@@ -27,6 +28,7 @@ const Blog = () =>{
 	}, [isLoggedin])
 
 	useEffect(()=>{
+
 		dispatch(getAllBlogs())
 	}, [])
 
@@ -42,6 +44,14 @@ const Blog = () =>{
 		}
 		dispatch(LikeControl(blogid, token))
 	}
+
+	const style = {
+	  height: 30,
+	  border: "1px solid green",
+	  margin: 6,
+	  padding: 8
+	};
+
 
 	return(
 		<>
